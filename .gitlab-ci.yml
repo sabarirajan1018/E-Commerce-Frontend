@@ -1,0 +1,32 @@
+stages:
+  - install
+  - test
+  - build
+
+variables:
+  NODE_ENV: test
+
+install_dependencies:
+  stage: install
+  image: node:18
+  script:
+    - npm install
+  cache:
+    paths:
+      - node_modules/
+
+run_tests:
+  stage: test
+  image: node:18
+  script:
+    - npm test
+
+build_frontend:
+  stage: build
+  image: node:18
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - client/build
